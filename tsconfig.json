@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "jsx": "react",
+        "target": "es2017",
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "importHelpers": true,
+        "alwaysStrict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": [
+        "**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.test.ts"
+    ]
+}
