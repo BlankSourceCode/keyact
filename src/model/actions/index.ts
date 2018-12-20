@@ -1,8 +1,9 @@
 export enum Actions {
-    AlphabetChanged = "ALPHABET_CHANGED",
+    DictionaryChanged = "DICTIONARY_CHANGED",
     UpdateFocus = "UPDATE_FOCUS",
     UpdateLastLetter = "UPDATE_LAST_LETTER",
-    GenerateParagraph = "GENERATE_PARAGRAPH"
+    GenerateParagraph = "GENERATE_PARAGRAPH",
+    UpdateStats = "UPDATE_STATS",
 }
 
 export {
@@ -14,5 +15,10 @@ export {
 
 export {
     SettingsAction,
-    setAlphabetAction,
+    setDictionaryAction,
 } from "./settingsActions";
+
+export {
+    StatsAction,
+    updateStatsAction,
+} from "./statsActions";

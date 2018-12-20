@@ -1,16 +1,16 @@
 import { Actions } from ".";
 
-export interface IAlphabetChangedAction {
-    type: Actions.AlphabetChanged;
-    key: string
+export interface IDictionaryChangedAction {
+    type: Actions.DictionaryChanged;
+    dictionary: string[];
 }
 
 
-export type SettingsAction = IAlphabetChangedAction;
+export type SettingsAction = IDictionaryChangedAction;
 
-export function setAlphabetAction(key: string): IAlphabetChangedAction {
+export function setDictionaryAction(dictionary: string[]): IDictionaryChangedAction {
     return {
-        type: Actions.AlphabetChanged,
-        key
+        type: Actions.DictionaryChanged,
+        dictionary
     };
 }

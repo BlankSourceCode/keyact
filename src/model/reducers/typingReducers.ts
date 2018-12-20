@@ -1,5 +1,5 @@
 import { TypingAction, Actions } from "../actions";
-import { DEFAULT_STATE, ITypingState, Words } from '../store/typingState';
+import { DEFAULT_STATE, ITypingState } from '../store/typingState';
 
 const MinimumLetterCountPerLesson = 120;
 const MaximumLetterCountPerLine = 34;
@@ -23,7 +23,7 @@ export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingStat
                 // Check that this word won't cause an awkward line length where a space is the first letter on the next line,
                 // If it does we need to pick a new word.
                 do {
-                    word = Words[Math.floor(Math.random() * Words.length)];
+                    word = action.dictionary[Math.floor(Math.random() * action.dictionary.length)];
                 } while (lineLength + word.length === MaximumLetterCountPerLine)
 
                 lineLength += word.length + 1; // Plus one for the space

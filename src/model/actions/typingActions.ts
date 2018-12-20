@@ -1,4 +1,7 @@
 import { Actions } from ".";
+import { Dispatch } from 'react-redux';
+import { ThunkAction } from "redux-thunk";
+import { IAppState } from '../state';
 
 export interface IUpdateFocusAction {
     type: Actions.UpdateFocus;
@@ -7,6 +10,7 @@ export interface IUpdateFocusAction {
 
 export interface IGenerateParagraphAction {
     type: Actions.GenerateParagraph;
+    dictionary: string[];
 }
 
 export interface IUpdateLastLetterAction {
@@ -23,9 +27,17 @@ export function updateFocusAction(hasFocus: boolean): IUpdateFocusAction {
     };
 }
 
-export function generateParagraphAction(): IGenerateParagraphAction {
+function generateParagraphActionThunked(dictionary: string[]): IGenerateParagraphAction {
     return {
         type: Actions.GenerateParagraph,
+        dictionary,
+    };
+}
+
+export function generateParagraphAction(): ThunkAction<void, IAppState, void, IGenerateParagraphAction> {
+    return (dispatch: Dispatch<any>, getState: () => IAppState) => {
+        const dictionary = getState().settings.dictionary;
+        dispatch(generateParagraphActionThunked(dictionary));
     };
 }
 

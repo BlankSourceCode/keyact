@@ -111,7 +111,7 @@ function mapDispatchToProps(dispatch: Dispatch<IAppState>): IDispatchProps {
     return {
         updateFocus: e => dispatch(updateFocusAction(e)),
         updateLastLetter: l => dispatch(updateLastLetterAction(l)),
-        generateParagraphAction: () => dispatch(generateParagraphAction()),
+        generateParagraphAction: () => dispatch(generateParagraphAction() as any /* Not sure why the thunk typing is not working */),
     };
 }
 

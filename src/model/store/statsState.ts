@@ -1,9 +1,11 @@
+import * as Immutable from "immutable";
+
 export interface IStatsState {
-    wpm: number;
-    accuracy: number;
+    wpm: Immutable.List<number>;
+    accuracy: Immutable.List<number>;
 }
 
 export const DEFAULT_STATE: IStatsState = {
-    wpm: 0,
-    accuracy: 0,
+    wpm: Immutable.List([]),
+    accuracy: Immutable.List([]),
 };

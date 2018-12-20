@@ -4,8 +4,11 @@ import { ISettingsState } from "../store/settingsState";
 import { settings } from "./settingsReducers";
 import { typing } from "./typingReducers";
 import { ITypingState } from '../store/typingState';
+import { IStatsState } from '../store/statsState';
+import { stats } from './statsReducers';
 
 export const reducers = combineReducers<IAppState>({
     settings: settings as Reducer<ISettingsState>,
     typing: typing as Reducer<ITypingState>,
+    stats: stats as Reducer<IStatsState>,
 });
