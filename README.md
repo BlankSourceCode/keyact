@@ -1,6 +1,6 @@
 # Keyact
 <p align="center">
-  <img src="src/assets/logo.png" alt="Keyact Logo"/>
+  <img src="src/assets/Logo.png" alt="Keyact Logo"/>
 </p>
 A typing trainer written in react/redux to help me learn to type in colemak-dh.
 
