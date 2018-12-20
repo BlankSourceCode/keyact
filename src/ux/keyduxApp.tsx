@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect, Dispatch } from "react-redux";
 import { IAppState } from "../model/state";
 import Paragraph from "./paragraph"
+import Statistics from "./statistics"
 import "./global.css";
 import { generateParagraphAction, updateLastLetterAction, updateFocusAction } from '../model/actions/typingActions';
 import { css } from "glamor";
@@ -40,11 +41,9 @@ const rootStyle = css({
 class KeyduxApp extends React.PureComponent<IKeyduxAppProps> {
     render() {
         return (
-            <div
-                {...rootStyle}
-                tabIndex={0}
-            >
+            <div {...rootStyle} tabIndex={0} >
                 <Paragraph />
+                <Statistics />
             </div>
         )
     }

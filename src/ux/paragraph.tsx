@@ -24,6 +24,7 @@ interface IDispatchProps {
 type IParagraphProps = IConnectedProps & IDispatchProps & IOwnProps;
 
 const containerStyle = css({
+    flexShrink: 0,
     display: "flex",
     flexDirection: "column",
     flexWrap: "no-wrap",

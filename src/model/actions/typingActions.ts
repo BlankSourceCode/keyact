@@ -1,4 +1,4 @@
-import { Actions } from ".";
+import { Actions, updateStatsAction } from ".";
 import { Dispatch } from 'react-redux';
 import { ThunkAction } from "redux-thunk";
 import { IAppState } from '../state';
@@ -37,6 +37,11 @@ function generateParagraphActionThunked(dictionary: string[]): IGenerateParagrap
 export function generateParagraphAction(): ThunkAction<void, IAppState, void, IGenerateParagraphAction> {
     return (dispatch: Dispatch<any>, getState: () => IAppState) => {
         const dictionary = getState().settings.dictionary;
+
+        if (getState().typing.paragraph.length > 0) {
+            dispatch(updateStatsAction() as any);
+        }
+        
         dispatch(generateParagraphActionThunked(dictionary));
     };
 }
