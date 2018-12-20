@@ -1,6 +1,9 @@
 import { TypingAction, Actions } from "../actions";
 import { DEFAULT_STATE, ITypingState, Words } from '../store/typingState';
 
+const MinimumLetterCountPerLesson = 120;
+const MaximumLetterCountPerLine = 34;
+
 export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingState {
     switch (action.type) {
         case Actions.UpdateFocus: {
@@ -11,9 +14,26 @@ export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingStat
         }
 
         case Actions.GenerateParagragh: {
+            // Generate enough words so that the number of actual letters to type hits a minimum
             const words: string[] = [];
-            for (let i = 0; i < 20; i++) {
-                words.push(Words[Math.floor(Math.random() * Words.length)]);
+            let letterCount = 0;
+            let lineLength = 0;
+            while (letterCount < MinimumLetterCountPerLesson) {
+                let word: string;
+                // Check that this word won't cause an awkward line length where a space is the first letter on the next line,
+                // If it does we need to pick a new word.
+                do {
+                    word = Words[Math.floor(Math.random() * Words.length)];
+                } while (lineLength + word.length === MaximumLetterCountPerLine)
+
+                lineLength += word.length + 1; // Plus one for the space
+                if (lineLength > MaximumLetterCountPerLine) {
+                    // Next line
+                    lineLength = word.length + 1;
+                }
+
+                words.push(word);
+                letterCount += word.length + 1;
             }
 
             return {
@@ -23,6 +43,7 @@ export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingStat
                 keysHitCount: 0,
                 keysMissCount: 0,
                 paragraph: words.join(' '),
+                isTypingComplete: false,
             };
         }
 

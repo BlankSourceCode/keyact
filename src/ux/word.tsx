@@ -22,6 +22,7 @@ type IWordProps = IConnectedProps & IDispatchProps & IOwnProps;
 
 const containerStyle = css({
     position: "relative",
+    marginBottom: "10px",
 });
 
 const wordContainerStyle = css({

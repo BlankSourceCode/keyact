@@ -3,7 +3,6 @@ import { connect, Dispatch } from "react-redux";
 import { IAppState } from "../model/state";
 import Word from "./word";
 import { css } from "glamor";
-import { relative } from 'path';
 
 interface IConnectedProps {
     paragraph: string,
@@ -51,9 +50,10 @@ const paragraphStyle = css({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
+    alignContent: "flex-start",
     margin: "auto",
     width: "800px",
-    height: "350px",
+    height: "330px",
     color: "#333333",
     backgroundColor: "#FFFFFF",
     borderRadius: "6px",
