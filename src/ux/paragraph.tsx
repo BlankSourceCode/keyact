@@ -26,12 +26,13 @@ type IParagraphProps = IConnectedProps & IDispatchProps & IOwnProps;
 const containerStyle = css({
     display: "flex",
     flexDirection: "column",
-    flexWrap: "wrap",
+    flexWrap: "no-wrap",
     margin: "auto",
     marginTop: "180px",
 });
 
 const statsContainerStyle = css({
+    flexShrink: 0,
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
