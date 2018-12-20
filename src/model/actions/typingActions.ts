@@ -6,7 +6,7 @@ export interface IUpdateFocusAction {
 }
 
 export interface IGenerateParagraphAction {
-    type: Actions.GenerateParagragh;
+    type: Actions.GenerateParagraph;
 }
 
 export interface IUpdateLastLetterAction {
@@ -25,7 +25,7 @@ export function updateFocusAction(hasFocus: boolean): IUpdateFocusAction {
 
 export function generateParagraphAction(): IGenerateParagraphAction {
     return {
-        type: Actions.GenerateParagragh,
+        type: Actions.GenerateParagraph,
     };
 }
 

@@ -13,7 +13,7 @@ export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingStat
             };
         }
 
-        case Actions.GenerateParagragh: {
+        case Actions.GenerateParagraph: {
             // Generate enough words so that the number of actual letters to type hits a minimum
             const words: string[] = [];
             let letterCount = 0;

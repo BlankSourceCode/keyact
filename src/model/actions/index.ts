@@ -2,7 +2,7 @@ export enum Actions {
     AlphabetChanged = "ALPHABET_CHANGED",
     UpdateFocus = "UPDATE_FOCUS",
     UpdateLastLetter = "UPDATE_LAST_LETTER",
-    GenerateParagragh = "GENERATE_PARAGRAPH"
+    GenerateParagraph = "GENERATE_PARAGRAPH"
 }
 
 export {
