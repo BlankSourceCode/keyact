@@ -10,6 +10,7 @@ export interface ITypingState {
     accuracy: number;
     wordsWPM: Immutable.List<number>;
     wordsStartTime: Immutable.List<number>;
+    wordsCorrection: Immutable.List<number>;
     typingStartTime: number;
     isTypingComplete: boolean;
 }
@@ -24,6 +25,7 @@ export const DEFAULT_STATE: ITypingState = {
     accuracy: 100,
     wordsWPM: Immutable.List([]),
     wordsStartTime: Immutable.List([]),
+    wordsCorrection: Immutable.List([]),
     typingStartTime: 0,
     isTypingComplete: false,
 };
@@ -54,6 +56,7 @@ export const Words = [
     "cd",
     "git",
     "commit",
+    "index",
     "the",
     "of",
     "and",

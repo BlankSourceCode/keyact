@@ -13,6 +13,7 @@ interface IOwnProps {
     typedWord: string,
     wpm: number,
     hasCursor: boolean,
+    correctionCount: number,
 }
 
 interface IDispatchProps {
@@ -101,14 +102,17 @@ class Word extends React.PureComponent<IWordProps> {
     }
 
     private buildWPM() {
-        if (!this.props.isTypingComplete ||
+        if (
             this.props.word === " " || 
             !this.props.hasCursor || 
             this.props.wpm <= 0 ||
             this.props.word !== this.props.typedWord) {
             return <div {...wpmStyle}>&nbsp;</div>;
         } else {
-            return <div {...wpmStyle}>{`${this.props.wpm}wpm`}</div>;
+            return <div {...wpmStyle}>
+                {`${this.props.wpm}wpm`}
+                {this.props.correctionCount > 0 ? "*" : ""}
+            </div>;
         }
     }
 

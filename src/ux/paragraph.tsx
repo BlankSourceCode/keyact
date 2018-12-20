@@ -8,6 +8,7 @@ interface IConnectedProps {
     paragraph: string,
     typedKeys: string,
     wordsWPM: number[],
+    wordsCorrection: number[],
     accuracy: number,
     wpm: number,
     hasDocumentFocus: boolean,
@@ -134,7 +135,9 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                         word={word}
                         typedWord={typedWord}
                         wpm={i < this.props.typedKeys.length ? this.getWPM(wordIndex): 0}
-                        hasCursor={i - word.length - 1 < cursorIndex} />
+                        hasCursor={i - word.length - 1 < cursorIndex} 
+                        correctionCount={this.getCorrectionCount(wordIndex)}
+                        />
                 );
 
                 // Add the space
@@ -145,6 +148,7 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                         typedWord={typedLetter}
                         wpm={0}
                         hasCursor={i === cursorIndex}
+                        correctionCount={0}
                     />
                 );
 
@@ -166,7 +170,9 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                     word={word}
                     typedWord={typedWord}
                     wpm={this.getWPM(wordIndex)}
-                    hasCursor={this.props.paragraph.length - word.length - 1 < cursorIndex} />
+                    hasCursor={this.props.paragraph.length - word.length - 1 < cursorIndex} 
+                    correctionCount={this.getCorrectionCount(wordIndex)}
+                    />
             );
         }
 
@@ -180,6 +186,14 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
             return 0;
         }
     }
+
+    private getCorrectionCount(wordIndex: number) {
+        if (wordIndex < this.props.wordsCorrection.length) {
+            return this.props.wordsCorrection[wordIndex];
+        } else {
+            return 0;
+        }
+    }
 }
 
 function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps & IOwnProps {
@@ -187,6 +201,7 @@ function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps
         paragraph: state.typing.paragraph,
         typedKeys: state.typing.typedKeys,
         wordsWPM: state.typing.wordsWPM.toJS(),
+        wordsCorrection: state.typing.wordsCorrection.toJS(),
         accuracy: state.typing.accuracy,
         wpm: state.typing.wpm,
         hasDocumentFocus: state.typing.hasFocus,
