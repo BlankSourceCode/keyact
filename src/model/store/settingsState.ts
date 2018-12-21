@@ -1,5 +1,7 @@
+import * as Immutable from "immutable";
+
 export interface ISettingsState {
-    dictionary: string[],
+    dictionary: Immutable.List<string>,
 }
 
 const Words = [
@@ -232,5 +234,5 @@ const Words = [
 ];
 
 export const DEFAULT_STATE: ISettingsState = {
-    dictionary: Words,
+    dictionary: Immutable.List(Words),
 };

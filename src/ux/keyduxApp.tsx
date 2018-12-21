@@ -4,8 +4,9 @@ import { IAppState } from "../model/state";
 import Paragraph from "./paragraph"
 import Statistics from "./statistics"
 import "./global.css";
-import { generateParagraphAction, updateLastLetterAction, updateFocusAction } from '../model/actions/typingActions';
+import { generateNewLessonAction, updateLastLetterAction, updateFocusAction } from '../model/actions/typingActions';
 import { css } from "glamor";
+import { loadStatsAction } from '../model/actions/statsActions';
 
 interface IConnectedProps {
     paragraph: string,
@@ -21,6 +22,7 @@ interface IDispatchProps {
     updateFocus: (hasFocus: boolean) => void;
     updateLastLetter: (l: string) => void;
     generateParagraphAction: () => void;
+    loadStatsAction: () => void;
 }
 
 type IKeyduxAppProps = IConnectedProps & IDispatchProps & IOwnProps;
@@ -53,6 +55,7 @@ class KeyduxApp extends React.PureComponent<IKeyduxAppProps> {
         document.addEventListener("focusout", this.handleFocusOut);
         document.addEventListener("keydown", this.handleKeyDown);
 
+        this.props.loadStatsAction();
         this.props.generateParagraphAction();
     }
 
@@ -110,7 +113,8 @@ function mapDispatchToProps(dispatch: Dispatch<IAppState>): IDispatchProps {
     return {
         updateFocus: e => dispatch(updateFocusAction(e)),
         updateLastLetter: l => dispatch(updateLastLetterAction(l)),
-        generateParagraphAction: () => dispatch(generateParagraphAction() as any /* Not sure why the thunk typing is not working */),
+        generateParagraphAction: () => dispatch(generateNewLessonAction() as any /* Not sure why the thunk typing is not working */),
+        loadStatsAction: () => dispatch(loadStatsAction() as any /* Not sure why the thunk typing is not working */),
     };
 }
 

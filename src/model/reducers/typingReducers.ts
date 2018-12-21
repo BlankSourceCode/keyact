@@ -13,7 +13,7 @@ export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingStat
             };
         }
 
-        case Actions.GenerateParagraph: {
+        case Actions.GenerateNewLesson: {
             // Generate enough words so that the number of actual letters to type hits a minimum
             const words: string[] = [];
             let letterCount = 0;
@@ -23,7 +23,7 @@ export function typing(state = DEFAULT_STATE, action: TypingAction): ITypingStat
                 // Check that this word won't cause an awkward line length where a space is the first letter on the next line,
                 // If it does we need to pick a new word.
                 do {
-                    word = action.dictionary[Math.floor(Math.random() * action.dictionary.length)];
+                    word = action.dictionary.get(Math.floor(Math.random() * action.dictionary.size));
                 } while (lineLength + word.length === MaximumLetterCountPerLine)
 
                 lineLength += word.length + 1; // Plus one for the space

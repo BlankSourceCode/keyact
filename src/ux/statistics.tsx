@@ -2,11 +2,11 @@ import * as React from "react";
 import { connect, Dispatch } from "react-redux";
 import { IAppState } from "../model/state";
 import { css } from "glamor";
-import { CartesianGrid, XAxis, YAxis, Scatter, ScatterChart } from 'recharts';
+import { CartesianGrid, XAxis, YAxis, Scatter, ScatterChart, Tooltip } from 'recharts';
+import { ILessonStats } from 'src/model/store/statsState';
 
 interface IConnectedProps {
-    wpm: number[],
-    accuracy: number[],
+    lessonStats: ILessonStats[],
 }
 
 interface IOwnProps {
@@ -35,10 +35,10 @@ class Statistics extends React.PureComponent<IStatisticsProps> {
 
     buildChart() {
         const data: any[] = [];
-        for (let i = 0; i < this.props.wpm.length; i++) {
+        for (let i = 0; i < this.props.lessonStats.length; i++) {
             data.push({
                 x: i,
-                y: this.props.wpm[i]
+                y: this.props.lessonStats[i].wpm,
             });
         }
         
@@ -52,6 +52,7 @@ class Statistics extends React.PureComponent<IStatisticsProps> {
                 <XAxis dataKey="x"/>
                 <YAxis dataKey="y"/>
                 <Scatter data={data} lineType='fitting' line fill='#8884d8' />
+                <Tooltip cursor={{strokeDasharray: '3 3'}}/>
             </ScatterChart>
         )
     }
@@ -59,8 +60,7 @@ class Statistics extends React.PureComponent<IStatisticsProps> {
 
 function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps & IOwnProps {
     return {
-        wpm: state.stats.wpm.toJS(),
-        accuracy: state.stats.accuracy.toJS(),
+        lessonStats: state.stats.lessonStats.toJS(),
         ...ownProps
     };
 }

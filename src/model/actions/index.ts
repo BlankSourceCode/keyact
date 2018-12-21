@@ -2,14 +2,16 @@ export enum Actions {
     DictionaryChanged = "DICTIONARY_CHANGED",
     UpdateFocus = "UPDATE_FOCUS",
     UpdateLastLetter = "UPDATE_LAST_LETTER",
-    GenerateParagraph = "GENERATE_PARAGRAPH",
+    GenerateNewLesson = "GENERATE_PARAGRAPH",
     UpdateStats = "UPDATE_STATS",
+    LoadStats = "LOAD_STATS",
+    SaveStats = "SAVE_STATS",
 }
 
 export {
     TypingAction,
     updateFocusAction,
-    generateParagraphAction,
+    generateNewLessonAction as generateParagraphAction,
     updateLastLetterAction,
 } from "./typingActions";
 
@@ -21,4 +23,6 @@ export {
 export {
     StatsAction,
     updateStatsAction,
+    loadStatsAction,
+    saveStatsAction,
 } from "./statsActions";
