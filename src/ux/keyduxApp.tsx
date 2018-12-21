@@ -1,56 +1,56 @@
+import { css } from "glamor";
 import * as React from "react";
 import { connect, Dispatch } from "react-redux";
+import { loadStatsAction } from "../model/actions/statsActions";
+import { generateNewLessonAction, updateFocusAction, updateLastLetterAction } from "../model/actions/typingActions";
 import { IAppState } from "../model/state";
-import Paragraph from "./paragraph"
-import Statistics from "./statistics"
 import "./global.css";
-import { generateNewLessonAction, updateLastLetterAction, updateFocusAction } from '../model/actions/typingActions';
-import { css } from "glamor";
-import { loadStatsAction } from '../model/actions/statsActions';
+import Paragraph from "./paragraph";
+import Statistics from "./statistics";
 
 interface IConnectedProps {
-    paragraph: string,
-    typedKeys: string,
-    hasDocumentFocus: boolean,
-    isTypingComplete: boolean,
+    paragraph: string;
+    typedKeys: string;
+    hasDocumentFocus: boolean;
+    isTypingComplete: boolean;
 }
 
 interface IOwnProps {
 }
 
 interface IDispatchProps {
-    updateFocus: (hasFocus: boolean) => void;
-    updateLastLetter: (l: string) => void;
     generateParagraphAction: () => void;
     loadStatsAction: () => void;
+    updateFocus: (hasFocus: boolean) => void;
+    updateLastLetter: (l: string) => void;
 }
 
 type IKeyduxAppProps = IConnectedProps & IDispatchProps & IOwnProps;
 
 const rootStyle = css({
+    alignItems: "stretch",
+    color: "#1e1e1e",
     display: "flex",
     flexDirection: "column",
     flexWrap: "nowrap",
-    alignItems: "stretch",
-    margin: "0",
-    height: "100%",
-    width: "100%",
     fontSize: "12px",
     fontWeight: "normal",
-    color: "#1e1e1e",
+    height: "100%",
+    margin: "0",
+    width: "100%",
 });
 
 class KeyduxApp extends React.PureComponent<IKeyduxAppProps> {
-    render() {
+    public render() {
         return (
             <div {...rootStyle} tabIndex={0} >
                 <Paragraph />
                 <Statistics />
             </div>
-        )
+        );
     }
 
-    componentWillMount() {
+    public componentWillMount() {
         document.addEventListener("focusin", this.handleFocusIn);
         document.addEventListener("focusout", this.handleFocusOut);
         document.addEventListener("keydown", this.handleKeyDown);
@@ -59,8 +59,7 @@ class KeyduxApp extends React.PureComponent<IKeyduxAppProps> {
         this.props.generateParagraphAction();
     }
 
-
-    componentWillUnmount() {
+    public componentWillUnmount() {
         document.removeEventListener("focusin", this.handleFocusIn);
         document.removeEventListener("focusout", this.handleFocusOut);
         document.removeEventListener("keydown", this.handleKeyDown);
@@ -95,26 +94,26 @@ class KeyduxApp extends React.PureComponent<IKeyduxAppProps> {
 
     private handleFocusOut = (_evt: FocusEvent) => {
         this.props.updateFocus(false);
-        
+
     }
 }
 
 function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps & IOwnProps {
     return {
-        paragraph: state.typing.paragraph,
-        typedKeys: state.typing.typedKeys,
         hasDocumentFocus: state.typing.hasFocus,
         isTypingComplete: state.typing.isTypingComplete,
-        ...ownProps
+        paragraph: state.typing.paragraph,
+        typedKeys: state.typing.typedKeys,
+        ...ownProps,
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<IAppState>): IDispatchProps {
     return {
-        updateFocus: e => dispatch(updateFocusAction(e)),
-        updateLastLetter: l => dispatch(updateLastLetterAction(l)),
-        generateParagraphAction: () => dispatch(generateNewLessonAction() as any /* Not sure why the thunk typing is not working */),
-        loadStatsAction: () => dispatch(loadStatsAction() as any /* Not sure why the thunk typing is not working */),
+        generateParagraphAction: () => dispatch(generateNewLessonAction() as any),
+        loadStatsAction: () => dispatch(loadStatsAction() as any),
+        updateFocus: (e) => dispatch(updateFocusAction(e)),
+        updateLastLetter: (l) => dispatch(updateLastLetterAction(l)),
     };
 }
 

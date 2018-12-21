@@ -1,18 +1,18 @@
+import { css } from "glamor";
 import * as React from "react";
 import { connect, Dispatch } from "react-redux";
 import { IAppState } from "../model/state";
 import Word from "./word";
-import { css } from "glamor";
 
 interface IConnectedProps {
-    paragraph: string,
-    typedKeys: string,
-    wordsWPM: number[],
-    wordsCorrection: number[],
-    accuracy: number,
-    wpm: number,
-    hasDocumentFocus: boolean,
-    isTypingComplete: boolean,
+    accuracy: number;
+    hasDocumentFocus: boolean;
+    isTypingComplete: boolean;
+    paragraph: string;
+    typedKeys: string;
+    wordsCorrection: number[];
+    wordsWPM: number[];
+    wpm: number;
 }
 
 interface IOwnProps {
@@ -24,23 +24,23 @@ interface IDispatchProps {
 type IParagraphProps = IConnectedProps & IDispatchProps & IOwnProps;
 
 const containerStyle = css({
-    flexShrink: 0,
     display: "flex",
     flexDirection: "column",
+    flexShrink: 0,
     flexWrap: "no-wrap",
     margin: "auto",
     marginTop: "180px",
 });
 
 const statsContainerStyle = css({
-    flexShrink: 0,
+    alignSelf: "flex-end",
+    color: "#333333",
     display: "flex",
     flexDirection: "row",
+    flexShrink: 0,
     flexWrap: "nowrap",
-    alignSelf: "flex-end",
     fontSize: "20px",
     marginBottom: "10px",
-    color: "#333333",
 });
 
 const statsStyle = css({
@@ -48,23 +48,23 @@ const statsStyle = css({
 });
 
 const paragraphStyle = css({
-    position: "relative",
-    flex: 0,
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
     alignContent: "flex-start",
-    margin: "auto",
-    width: "800px",
-    height: "330px",
-    color: "#333333",
     backgroundColor: "#FFFFFF",
     borderRadius: "6px",
     boxShadow: "0px 1px 4px 0px rgba(0,0,0,0.14)",
-    padding: "15px 10px",
+    color: "#333333",
+    display: "flex",
+    flex: 0,
+    flexDirection: "row",
+    flexWrap: "wrap",
     fontSize: "42px",
     fontWeight: "normal",
+    height: "330px",
     lineHeight: "1em",
+    margin: "auto",
+    padding: "15px 10px",
+    position: "relative",
+    width: "800px",
 });
 
 const paragraphNoFocusStyle = css({
@@ -72,16 +72,16 @@ const paragraphNoFocusStyle = css({
 });
 
 const messageStyle = css({
-    position: "absolute",
     bottom: "-5px",
     color: "#333333",
+    fontSize: "20px",
+    position: "absolute",
     textAlign: "center",
     width: "100%",
-    fontSize: "20px"
 });
 
 class Paragraph extends React.PureComponent<IParagraphProps> {
-    render() {
+    public render() {
         let wordsStyle = paragraphStyle;
         if (!this.props.hasDocumentFocus) {
             wordsStyle = { ...paragraphNoFocusStyle, ...paragraphStyle };
@@ -102,11 +102,11 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                 </div>
                 <div {...wordsStyle}>
                     {this.buildWords()}
-                    { showDone ? <div {...messageStyle}>Done. Type 'Enter' to restart.</div> : null }
-                    { showActivate ? <div {...messageStyle}>Click to activate...</div> : null }
+                    {showDone ? <div {...messageStyle}>Done. Type 'Enter' to restart.</div> : null}
+                    {showActivate ? <div {...messageStyle}>Click to activate...</div> : null}
                 </div>
             </div>
-        )
+        );
     }
 
     private buildWPM() {
@@ -114,7 +114,7 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
     }
 
     private buildAccuracy() {
-        return <span>accuracy: {this.props.accuracy.toFixed(2)}%<sup></sup></span>;
+        return <span>accuracy: {this.props.accuracy.toFixed(2)}%<sup/></span>;
     }
 
     private buildWords() {
@@ -136,10 +136,10 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                         key={children.length}
                         word={word}
                         typedWord={typedWord}
-                        wpm={i < this.props.typedKeys.length ? this.getWPM(wordIndex): 0}
-                        hasCursor={i - word.length - 1 < cursorIndex} 
+                        wpm={i < this.props.typedKeys.length ? this.getWPM(wordIndex) : 0}
+                        hasCursor={i - word.length - 1 < cursorIndex}
                         correctionCount={this.getCorrectionCount(wordIndex)}
-                        />
+                    />,
                 );
 
                 // Add the space
@@ -151,7 +151,7 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                         wpm={0}
                         hasCursor={i === cursorIndex}
                         correctionCount={0}
-                    />
+                    />,
                 );
 
                 // Reset the strings
@@ -172,9 +172,9 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
                     word={word}
                     typedWord={typedWord}
                     wpm={this.getWPM(wordIndex)}
-                    hasCursor={this.props.paragraph.length - word.length - 1 < cursorIndex} 
+                    hasCursor={this.props.paragraph.length - word.length - 1 < cursorIndex}
                     correctionCount={this.getCorrectionCount(wordIndex)}
-                    />
+                />,
             );
         }
 
@@ -200,20 +200,19 @@ class Paragraph extends React.PureComponent<IParagraphProps> {
 
 function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps & IOwnProps {
     return {
-        paragraph: state.typing.paragraph,
-        typedKeys: state.typing.typedKeys,
-        wordsWPM: state.typing.wordsWPM.toJS(),
-        wordsCorrection: state.typing.wordsCorrection.toJS(),
         accuracy: state.typing.accuracy,
-        wpm: state.typing.wpm,
         hasDocumentFocus: state.typing.hasFocus,
         isTypingComplete: state.typing.isTypingComplete,
-        ...ownProps
+        paragraph: state.typing.paragraph,
+        typedKeys: state.typing.typedKeys,
+        wordsCorrection: state.typing.wordsCorrection.toJS(),
+        wordsWPM: state.typing.wordsWPM.toJS(),
+        wpm: state.typing.wpm,
+        ...ownProps,
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<IAppState>): IDispatchProps {
-    dispatch;
+function mapDispatchToProps(_dispatch: Dispatch<IAppState>): IDispatchProps {
     return {
     };
 }

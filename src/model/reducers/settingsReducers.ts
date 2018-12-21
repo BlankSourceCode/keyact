@@ -1,4 +1,4 @@
-import { SettingsAction, Actions } from "../actions";
+import { Actions, SettingsAction } from "../actions";
 import { DEFAULT_STATE, ISettingsState } from "../store/settingsState";
 
 export function settings(state = DEFAULT_STATE, action: SettingsAction): ISettingsState {
@@ -6,7 +6,7 @@ export function settings(state = DEFAULT_STATE, action: SettingsAction): ISettin
         case Actions.DictionaryChanged:
             return {
                 ...state,
-                dictionary: action.dictionary
+                dictionary: action.dictionary,
             };
 
         default:

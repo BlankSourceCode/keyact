@@ -1,21 +1,24 @@
 import * as Immutable from "immutable";
-import { Actions, updateStatsAction } from ".";
-import { Dispatch } from 'react-redux';
+import { Dispatch } from "react-redux";
 import { ThunkAction } from "redux-thunk";
-import { IAppState } from '../state';
+import { Actions, updateStatsAction } from ".";
+import { IAppState } from "../state";
 
 export interface IUpdateFocusAction {
     type: Actions.UpdateFocus;
+
     hasFocus: boolean;
 }
 
 export interface IGenerateParagraphAction {
     type: Actions.GenerateNewLesson;
+
     dictionary: Immutable.List<string>;
 }
 
 export interface IUpdateLastLetterAction {
     type: Actions.UpdateLastLetter;
+
     letter: string;
 }
 
@@ -24,6 +27,7 @@ export type TypingAction = IUpdateFocusAction | IGenerateParagraphAction | IUpda
 export function updateFocusAction(hasFocus: boolean): IUpdateFocusAction {
     return {
         type: Actions.UpdateFocus,
+
         hasFocus,
     };
 }
@@ -31,6 +35,7 @@ export function updateFocusAction(hasFocus: boolean): IUpdateFocusAction {
 function generateNewLessonActionThunked(dictionary: Immutable.List<string>): IGenerateParagraphAction {
     return {
         type: Actions.GenerateNewLesson,
+
         dictionary,
     };
 }
@@ -50,7 +55,7 @@ export function generateNewLessonAction(): ThunkAction<void, IAppState, void, IG
 export function updateLastLetterAction(letter: string): IUpdateLastLetterAction {
     return {
         type: Actions.UpdateLastLetter,
+
         letter,
     };
 }
-

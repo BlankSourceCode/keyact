@@ -1,19 +1,21 @@
 import * as Immutable from "immutable";
+import { Dispatch } from "react-redux";
+import { ThunkAction } from "redux-thunk";
 import { Actions } from ".";
-import { ThunkAction } from 'redux-thunk';
-import { IAppState } from '../state';
-import { Dispatch } from 'react-redux';
-import { DEFAULT_STATE, IStatsState } from '../store/statsState';
+import { IAppState } from "../state";
+import { DEFAULT_STATE, IStatsState } from "../store/statsState";
 
 export interface IUpdateStatsAction {
     type: Actions.UpdateStats;
-    wpm: number;
+
     accuracy: number;
+    wpm: number;
 }
 
 export interface ILoadStatsAction {
     type: Actions.LoadStats;
-    stats: IStatsState,
+
+    stats: IStatsState;
 }
 export interface ISaveStatsAction {
     type: Actions.SaveStats;
@@ -24,14 +26,16 @@ export type StatsAction = IUpdateStatsAction | ILoadStatsAction | ISaveStatsActi
 function updateStatsActionThunked(wpm: number, accuracy: number): IUpdateStatsAction {
     return {
         type: Actions.UpdateStats,
-        wpm,
+
         accuracy,
+        wpm,
     };
 }
 
 function loadStatsActionThunked(stats: IStatsState): ILoadStatsAction {
     return {
         type: Actions.LoadStats,
+
         stats,
     };
 }

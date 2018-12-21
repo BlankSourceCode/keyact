@@ -1,31 +1,31 @@
 import * as Immutable from "immutable";
 
 export interface ITypingState {
+    accuracy: number;
     hasFocus: boolean;
-    paragraph: string;
-    typedKeys: string;
+    isTypingComplete: boolean;
     keysHitCount: number;
     keysMissCount: number;
-    wpm: number;
-    accuracy: number;
-    wordsWPM: Immutable.List<number>;
-    wordsStartTime: Immutable.List<number>;
-    wordsCorrection: Immutable.List<number>;
+    paragraph: string;
+    typedKeys: string;
     typingStartTime: number;
-    isTypingComplete: boolean;
+    wordsCorrection: Immutable.List<number>;
+    wordsStartTime: Immutable.List<number>;
+    wordsWPM: Immutable.List<number>;
+    wpm: number;
 }
 
 export const DEFAULT_STATE: ITypingState = {
+    accuracy: 100,
     hasFocus: false,
-    paragraph: "",
-    typedKeys: "",
+    isTypingComplete: false,
     keysHitCount: 0,
     keysMissCount: 0,
-    wpm: 0,
-    accuracy: 100,
-    wordsWPM: Immutable.List([]),
-    wordsStartTime: Immutable.List([]),
-    wordsCorrection: Immutable.List([]),
+    paragraph: "",
+    typedKeys: "",
     typingStartTime: 0,
-    isTypingComplete: false,
+    wordsCorrection: Immutable.List([]),
+    wordsStartTime: Immutable.List([]),
+    wordsWPM: Immutable.List([]),
+    wpm: 0,
 };

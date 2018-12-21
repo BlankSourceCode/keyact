@@ -1,19 +1,19 @@
+import { css } from "glamor";
 import * as React from "react";
 import { connect, Dispatch } from "react-redux";
 import { IAppState } from "../model/state";
-import { css } from "glamor";
 
 interface IConnectedProps {
-    hasDocumentFocus: boolean,
-    isTypingComplete: boolean,
+    hasDocumentFocus: boolean;
+    isTypingComplete: boolean;
 }
 
 interface IOwnProps {
-    word: string,
-    typedWord: string,
-    wpm: number,
-    hasCursor: boolean,
-    correctionCount: number,
+    word: string;
+    typedWord: string;
+    wpm: number;
+    hasCursor: boolean;
+    correctionCount: number;
 }
 
 interface IDispatchProps {
@@ -22,17 +22,17 @@ interface IDispatchProps {
 type IWordProps = IConnectedProps & IDispatchProps & IOwnProps;
 
 const containerStyle = css({
-    position: "relative",
     marginBottom: "10px",
+    position: "relative",
 });
 
 const wordContainerStyle = css({
+    borderRadius: "6px",
+    borderTop: "2px solid transparent",
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    borderTop: "2px solid transparent",
-    borderRadius: "6px",
-    padding:"2px 0 2px 0",
+    padding: "2px 0 2px 0",
 });
 
 const activeWordStyle = css({
@@ -40,38 +40,38 @@ const activeWordStyle = css({
 });
 
 const wpmStyle = css({
-    position: "relative",
     fontSize: "10px",
     lineHeight: "15px",
+    position: "relative",
     textAlign: "right",
 });
 
 const letterStyle = css({
-    flex: 0,
-    textAlign: "center",
-    height: "1em",
     borderBottom: "4px solid transparent",
-    margin: "1px",
     borderRadius: "2px",
+    flex: 0,
+    height: "1em",
+    margin: "1px",
     position: "relative",
+    textAlign: "center",
 });
 
 const activeLetterStyle = css({
-    borderBottom: "4px solid #3c4858",
     animation: "blink-cursor 0.75s steps(1, end) infinite",
+    borderBottom: "4px solid #3c4858",
 });
 
 const correctLetterStyle = css({
-    color: "#0e630e",
     backgroundColor: "#e7fbd3",
+    color: "#0e630e",
 });
 
 const incorrectLetterStyle = css({
-    color: "#0e630e",
     backgroundColor: "#FFC0CB",
+    color: "#0e630e",
 });
 
-const fadeAnimation = (css as any).keyframes({ 
+const fadeAnimation = (css as any).keyframes({
     "0%": { opacity: 1 },
     "100%": { opacity: 0 },
 });
@@ -85,7 +85,7 @@ const incorrectAnimationLetterStyle = css({
 });
 
 class Word extends React.PureComponent<IWordProps> {
-    render() {
+    public render() {
         let wordStyle = wordContainerStyle;
         if (this.props.hasCursor && this.props.typedWord.length < this.props.word.length) {
             wordStyle = { ...wordStyle, ...activeWordStyle };
@@ -98,21 +98,23 @@ class Word extends React.PureComponent<IWordProps> {
                     {this.buildWord()}
                 </div>
             </div>
-        )
+        );
     }
 
     private buildWPM() {
         if (
-            this.props.word === " " || 
-            !this.props.hasCursor || 
+            this.props.word === " " ||
+            !this.props.hasCursor ||
             this.props.wpm <= 0 ||
             this.props.word !== this.props.typedWord) {
             return <div {...wpmStyle}>&nbsp;</div>;
         } else {
-            return <div {...wpmStyle}>
-                {`${this.props.wpm}wpm`}
-                {this.props.correctionCount > 0 ? "*" : ""}
-            </div>;
+            return (
+                <div {...wpmStyle}>
+                    {`${this.props.wpm}wpm`}
+                    {this.props.correctionCount > 0 ? "*" : ""}
+                </div>
+            );
         }
     }
 
@@ -130,21 +132,19 @@ class Word extends React.PureComponent<IWordProps> {
                 this.props.hasCursor && i === this.props.typedWord.length);
 
             let wrongLetter = null;
-            if (actualLetter !== "" && expectedLetter !== actualLetter)
-            {
-                wrongLetter = 
+            if (actualLetter !== "" && expectedLetter !== actualLetter) {
+                wrongLetter = (
                     <span {...incorrectAnimationLetterStyle}>
                         {actualLetter}
                     </span>
+                );
             }
 
             letters.push(
-                <span
-                    key={i}
-                    {...styles}>
+                <span key={i} {...styles} >
                     {visualLetter}
                     {wrongLetter}
-                </span>
+                </span>,
             );
         }
 
@@ -169,7 +169,6 @@ class Word extends React.PureComponent<IWordProps> {
 }
 
 function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps & IOwnProps {
-    state;
     return {
         ...ownProps,
         hasDocumentFocus: state.typing.hasFocus,
@@ -177,8 +176,7 @@ function mapStateToProps(state: IAppState, ownProps: IOwnProps): IConnectedProps
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<IAppState>): IDispatchProps {
-    dispatch;
+function mapDispatchToProps(_dispatch: Dispatch<IAppState>): IDispatchProps {
     return {
     };
 }

@@ -1,0 +1,17 @@
+{
+    "extends": [
+        "tslint:recommended",
+        "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": { 
+        "no-empty-interface": false,
+        "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-leading-underscore"
+          ]
+    },
+    "rulesDirectory": []
+}

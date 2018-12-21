@@ -1,8 +1,10 @@
 import * as React from "react";
-import KeyduxApp from "./ux/keyduxApp"
-import { hot } from 'react-hot-loader';
+import { hot } from "react-hot-loader";
+import KeyduxApp from "./ux/keyduxApp";
 
 declare var module: any;
-export const App = hot(module)(() => (
+const app = hot(module)(() => (
     <KeyduxApp />
 ));
+
+export { app as App };

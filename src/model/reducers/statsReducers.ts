@@ -1,19 +1,8 @@
-import { StatsAction, Actions } from "../actions";
+import { Actions, StatsAction } from "../actions";
 import { DEFAULT_STATE, IStatsState } from "../store/statsState";
 
 export function stats(state = DEFAULT_STATE, action: StatsAction): IStatsState {
     switch (action.type) {
-        case Actions.UpdateStats: {
-            let lessonStats = state.lessonStats.push({
-                wpm: action.wpm,
-                accuracy: action.accuracy,
-            });
-
-            return {
-                ...state,
-                lessonStats,
-            };
-        }
 
         case Actions.LoadStats: {
             return {
@@ -24,6 +13,18 @@ export function stats(state = DEFAULT_STATE, action: StatsAction): IStatsState {
         case Actions.SaveStats: {
             return {
                 ...state,
+            };
+        }
+
+        case Actions.UpdateStats: {
+            const lessonStats = state.lessonStats.push({
+                accuracy: action.accuracy,
+                wpm: action.wpm,
+            });
+
+            return {
+                ...state,
+                lessonStats,
             };
         }
 

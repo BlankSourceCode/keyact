@@ -1,14 +1,14 @@
-import { IAppState } from "../state";
 import { combineReducers, Reducer } from "redux";
+import { IAppState } from "../state";
 import { ISettingsState } from "../store/settingsState";
+import { IStatsState } from "../store/statsState";
+import { ITypingState } from "../store/typingState";
 import { settings } from "./settingsReducers";
+import { stats } from "./statsReducers";
 import { typing } from "./typingReducers";
-import { ITypingState } from '../store/typingState';
-import { IStatsState } from '../store/statsState';
-import { stats } from './statsReducers';
 
 export const reducers = combineReducers<IAppState>({
     settings: settings as Reducer<ISettingsState>,
-    typing: typing as Reducer<ITypingState>,
     stats: stats as Reducer<IStatsState>,
+    typing: typing as Reducer<ITypingState>,
 });

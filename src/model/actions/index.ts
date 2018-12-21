@@ -10,19 +10,22 @@ export enum Actions {
 
 export {
     TypingAction,
+
+    generateNewLessonAction,
     updateFocusAction,
-    generateNewLessonAction as generateParagraphAction,
     updateLastLetterAction,
 } from "./typingActions";
 
 export {
     SettingsAction,
+
     setDictionaryAction,
 } from "./settingsActions";
 
 export {
     StatsAction,
-    updateStatsAction,
+
     loadStatsAction,
     saveStatsAction,
+    updateStatsAction,
 } from "./statsActions";
